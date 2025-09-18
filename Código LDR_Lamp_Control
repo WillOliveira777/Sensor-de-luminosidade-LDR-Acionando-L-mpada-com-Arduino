@@ -1,1 +1,25 @@
-Código Arduino
+//Programa: Acionando lâmpada/led com Arduino utilizando LDR
+//Autor: Willians de Oliveira
+
+const int LDR = A0;               // Pino analógico que o sensor está conectado
+const int luz = 13;               // Pino Referente ao LED ou relé que será ligada a lâmpada
+int valorsensor ;                 // Variável que será armazenado o valor de leitura do LDR
+
+void setup() {
+  pinMode(luz, OUTPUT);           // Define que o pino da variável luz é uma saída
+  pinMode(LDR, INPUT);            // Define que o pino da variável LDR é uma entrada
+  Serial.begin(9600);             // Inicia a comunicação serial com a taxa de 9600 bps
+}
+
+void loop() {
+  valorsensor = analogRead(LDR);  // Realiza a leitura do pino analógico LDR e armazena o valor na variavel valorsensor
+  Serial.print("LDR : " );        // Mostra o valor no monitor serial
+  Serial.println(valorsensor);
+
+  if (valorsensor < 500) {        // Se o valor do VALORSENSOR for menor que 500
+    digitalWrite(luz, HIGH);      // Ligar LED ou relé
+  } else {                        // Se não
+    digitalWrite(luz, LOW);       // Desligar LED ou relé
+  }
+  delay(100);                     // Aguarda 100 milisegundos
+}
